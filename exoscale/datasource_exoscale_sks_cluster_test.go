@@ -124,6 +124,24 @@ resource "exoscale_sks_nodepool" "my_sks_nodepool_2" {
     resource.exoscale_security_group.my_sks_security_group.id,
   ]
 }
+
+resource "exoscale_sks_nodepool" "my_sks_nodepool_3" {
+  zone       = local.my_zone
+  cluster_id = exoscale_sks_cluster.my_sks_cluster_2.id
+  name       = %q
+
+  instance_type = "standard.medium"
+  size          = 3
+
+  anti_affinity_group_ids = [
+    exoscale_anti_affinity_group.my_sks_anti_affinity_group.id,
+  ]
+  security_group_ids = [
+    data.exoscale_security_group.default.id,
+    resource.exoscale_security_group.my_sks_security_group.id,
+  ]
+  public_ip_assignment = "dual"
+}
 `, testZoneName, cluster1Name, cluster2Name, affinityGroupName, securityGroupName, nodepool1Name, nodepool2Name)
 )
 

@@ -87,6 +87,8 @@ resource "exoscale_sks_nodepool" "my_sks_nodepool" {
     data.exoscale_security_group.default.id,
     resource.exoscale_security_group.my_sks_security_group.id,
   ]
+
+  public_ip_assignment = "dual"
 }
 
 # (administration credentials)
